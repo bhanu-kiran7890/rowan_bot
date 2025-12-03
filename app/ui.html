@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Rowan Info Bot</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial;
+        background: #f7f7f7;
+    }
+    .header {
+        background: #a67c00;
+        color: white;
+        padding: 15px;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+    }
+    #chatbox {
+        height: 80vh;
+        overflow-y: scroll;
+        padding: 20px;
+        background: #ffffff;
+    }
+    .bubble {
+        max-width: 70%;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 10px 0;
+        line-height: 1.4em;
+    }
+    .user {
+        background-color: #ffe98a;
+        margin-left: auto;
+    }
+    .bot {
+        background-color: #eeeeee;
+        margin-right: auto;
+    }
+    .input-area {
+        display: flex;
+        padding: 15px;
+        background: #ddd;
+    }
+    #message {
+        flex: 1;
+        padding: 10px;
+        font-size: 16px;
+    }
+    button {
+        padding: 10px 15px;
+        margin-left: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="header">Rowan Info Bot</div>
+
+<div id="chatbox"></div>
+
+<div class="input-area">
+    <input id="message" placeholder="Ask me anything about Rowan University..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+async function sendMessage() {
+    const input = document.getElementById("message");
+    const text = input.value.trim();
+    if (!text) return;
+
+    addBubble(text, "user");
+    input.value = "";
+
+    const response = await fetch(`http://127.0.0.1:8000/ask?query=${encodeURIComponent(text)}`);
+    const data = await response.json();
+
+    addBubble(data.answer, "bot");
+}
+
+function addBubble(text, who) {
+    const chat = document.getElementById("chatbox");
+    const bubble = document.createElement("div");
+    bubble.className = "bubble " + who;
+    bubble.textContent = text;
+    chat.appendChild(bubble);
+    chat.scrollTop = chat.scrollHeight;
+}
+</script>
+
+</body>
+</html>
