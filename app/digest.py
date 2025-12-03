@@ -5,7 +5,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 
 # Load documents from app/docs/
-docs_path = "app/docs"
+docs_path = "app/data"
 all_docs = []
 
 for file in os.listdir(docs_path):
