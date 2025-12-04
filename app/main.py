@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request # type: ignore
 from fastapi.responses import HTMLResponse, JSONResponse # type: ignore
 from fastapi.staticfiles import StaticFiles # type: ignore
-from app.chatbot import ask_rowan_bot # type: ignore
+from chatbot import ask_rowan_bot # type: ignore
 
 app = FastAPI()
 
@@ -33,3 +33,4 @@ async def ask_bot(request: Request):
     except Exception as e:
         print("ERROR:", e)
         return JSONResponse({"error": "Server error", "details": str(e)}, status_code=500)
+
