@@ -1,7 +1,7 @@
 from langchain_ollama import ChatOllama  # type: ignore
 from langchain_community.vectorstores import FAISS  # type: ignore
 from langchain_core.messages import HumanMessage
-from app.rag import load_vector_store  # type: ignore
+from rag import load_vector_store  # type: ignore
 
 # Load vectorstore once
 vs = load_vector_store()
@@ -34,3 +34,4 @@ Question: {query}
 
     # STEP 4 — Return the model's response
     return response.content
+
