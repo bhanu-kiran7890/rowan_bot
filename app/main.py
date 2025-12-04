@@ -6,7 +6,8 @@ from chatbot import ask_rowan_bot # type: ignore
 app = FastAPI()
 
 # Serve static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")  # 
+
 
 # Serve UI
 @app.get("/", response_class=HTMLResponse)
@@ -33,4 +34,5 @@ async def ask_bot(request: Request):
     except Exception as e:
         print("ERROR:", e)
         return JSONResponse({"error": "Server error", "details": str(e)}, status_code=500)
+
 
