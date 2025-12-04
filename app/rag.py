@@ -27,7 +27,7 @@ def build_vector_store():
     # 👉 FAST, LIGHTWEIGHT EMBEDDINGS
     # (No freezing, safe for all laptops)
     print("Creating embeddings using nomic-embed-text...")
-    embeddings = OllamaEmbeddings(model="nomic-embed-text")
+    embeddings = OllamaEmbeddings(model="llama3")
 
     print("Building FAISS vectorstore... This will be fast.")
     vs = FAISS.from_documents(docs, embeddings)
@@ -42,3 +42,4 @@ def load_vector_store():
     print("Loading existing vectorstore...")
     embeddings = OllamaEmbeddings(model="nomic-embed-text")
     return FAISS.load_local("app/vectorstore", embeddings, allow_dangerous_deserialization=True)
+
