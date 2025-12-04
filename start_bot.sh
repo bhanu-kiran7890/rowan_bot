@@ -1,36 +1,16 @@
-from pathlib import Path
+#!/bin/bash
 
-# Path where the script will be saved
-script_path = Path("/mnt/data/start_bot.sh")
+echo "🔁 Activating virtual environment..."
+source venv/bin/activate
 
-# Script content based on user's workspace setup
-script_content = """#!/bin/bash
-echo "🔁 Starting Rowan Info Bot..."
+echo "🧠 Starting Ollama server in background..."
+ollama serve > /dev/null 2>&1 &
 
-# Navigate to project directory
-cd /workspace/rowan_bot
+echo "📦 Pulling LLaMA3 model (if not already pulled)..."
+ollama pull llama3
 
-# Activate virtual environment
-echo "📦 Activating Python virtual environment..."
-source ../venv/bin/activate
+echo "📚 Building vectorstore..."
+python app/ingest.py
 
-# Kill any running ollama processes
-echo "🧹 Stopping any running Ollama instances..."
-pkill -f ollama
-
-# Start Ollama in background
-echo "🚀 Starting Ollama server..."
-ollama serve &
-
-# Launch FastAPI app
-echo "🌐 Launching FastAPI app..."
+echo "🚀 Starting Rowan Bot FastAPI server..."
 python app/main.py
-"""
-
-# Write script file
-script_path.write_text(script_content)
-
-# Make it executable
-script_path.chmod(0o755)
-
-script_path.name
