@@ -1,21 +1,18 @@
-from fastapi import FastAPI, Request # type: ignore
-from fastapi.responses import HTMLResponse, JSONResponse # type: ignore
-from fastapi.staticfiles import StaticFiles # type: ignore
-from chatbot import ask_rowan_bot # type: ignore
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+from chatbot import ask_rowan_bot
 
 app = FastAPI()
 
-# Serve static files
-app.mount("/static", StaticFiles(directory="static"), name="static")  # 
+# Mount static folder
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-
-# Serve UI
 @app.get("/", response_class=HTMLResponse)
 async def home():
     with open("app/static/index.html", "r", encoding="utf-8") as f:
         return f.read()
 
-# POST endpoint for chatbot
 @app.post("/ask")
 async def ask_bot(request: Request):
     data = await request.json()
@@ -35,4 +32,7 @@ async def ask_bot(request: Request):
         print("ERROR:", e)
         return JSONResponse({"error": "Server error", "details": str(e)}, status_code=500)
 
-
+# ⬇️ Only needed if running via `python main.py`
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
