@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from chatbot import ask_rowan_bot
+import traceback
 
 app = FastAPI()
 
@@ -30,11 +31,13 @@ async def ask_bot(request: Request):
 
     except Exception as e:
         print("ERROR:", e)
+        traceback.print_exc()
         return JSONResponse({"error": "Server error", "details": str(e)}, status_code=500)
 
 # ⬇️ Only needed if running via `python main.py`
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
 
 
