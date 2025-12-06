@@ -11,7 +11,7 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    with open("static/index.html", "r", encoding="utf-8") as f:
+    with open("app/static/index.html", "r", encoding="utf-8") as f:
         return f.read()
 
 @app.post("/ask")
@@ -38,6 +38,7 @@ async def ask_bot(request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
 
 
 
