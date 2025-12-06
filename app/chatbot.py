@@ -30,8 +30,9 @@ Question: {query}
 """
 
     # STEP 3 — Send prompt to LLM
-    response = llm.invoke(HumanMessage(content=prompt))
+    response = llm.invoke(prompt)
 
     # STEP 4 — Return the model's response
     return response.content
+
 
