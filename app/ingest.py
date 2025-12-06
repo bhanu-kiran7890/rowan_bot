@@ -19,7 +19,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20
 documents = text_splitter.split_documents(all_docs)
 
 # Use HuggingFace embeddings (or replace with another if needed)
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+embeddings = OllamaEmbeddings(model="llama3")
 
 # Create and save FAISS index
 db = FAISS.from_documents(documents, embeddings)
