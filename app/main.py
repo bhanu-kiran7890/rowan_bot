@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from chatbot import ask_rowan_bot
+from app.chatbot import ask_rowan_bot
 import traceback
 
 app = FastAPI()
@@ -38,6 +38,7 @@ async def ask_bot(request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
 
 
 
