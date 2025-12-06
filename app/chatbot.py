@@ -7,10 +7,7 @@ from rag import load_vector_store  # type: ignore
 vs = load_vector_store()
 
 # Connect to Ollama running on RunPod
-llm = ChatOllama(
-    base_url="http://69.30.85.69:22112",  # Your RunPod Ollama IP and port
-    model="llama3"
-)
+llm = ChatOllama( model="llama3")
 
 def ask_rowan_bot(query: str):
     # STEP 1 — Retrieve relevant documents
@@ -34,5 +31,6 @@ Question: {query}
 
     # STEP 4 — Return the model's response
     return response.content
+
 
 
